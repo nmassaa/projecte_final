@@ -17,7 +17,7 @@
         <p id="resultatText"></p>
     </div>
 
-    <form id="elMeuFormulari" novalidate>
+    <form id="elMeuFormulari" >
         <fieldset>
             <legend>INFORMACIÓ PERSONAL</legend>
 
@@ -40,7 +40,7 @@
             <br><br>
 
             <label for="codipostal">Codi postal:</label>
-            <input type="text" id="codipostal" maxlength="5">
+            <input type="text" id="codipostal" maxlength="5" >
             <span id="errorCP" class="error"></span>
             <br><br>
 
@@ -68,8 +68,8 @@
             <span id="errorAcceptar" class="error"></span>
             <br><br>
 
-            <input type="button" id="btnEsborrar" value="Esborrar">
-            <input type="submit" value="Enviar">
+            <input type="reset" id="btnEsborrar" value="Esborrar">
+            <input type="submit" text="submit">
         </fieldset>
     </form>
     <script src="projecte_final.js"></script>
