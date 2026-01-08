@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulari Projecte</title>
+    <link rel="stylesheet" href="../CSS/treball_final.css">
+</head>
+<body>
+
+    <header>
+        <h1>Formulari de contacte</h1>
+    </header>
+
+    <div id="missatgeFinal" class="ocult">
+        <h3>Dades enviades correctament!</h3>
+        <p id="resultatText"></p>
+    </div>
+
+    <form id="elMeuFormulari" novalidate>
+        <fieldset>
+            <legend>INFORMACIÓ PERSONAL</legend>
+
+            <label for="nom">Nom i cognoms:</label>
+            <input type="text" id="nom" placeholder="Escriu el teu nom">
+            <span id="errorNom" class="error"></span>
+            <br><br>
+
+            <label for="edat">Edat:</label>
+            <select id="edat">
+                <option value="">Selecciona una opció</option>
+                <option value="0-17">0-17</option>
+                <option value="18-25">18-25</option>
+                <option value="26-40">26-40</option>
+                <option value="41-55">41-55</option>
+                <option value="56-65">56-65</option>
+                <option value=">65">+65</option>
+            </select>
+            <span id="errorEdat" class="error"></span>
+            <br><br>
+
+            <label for="codipostal">Codi postal:</label>
+            <input type="text" id="codipostal" maxlength="5">
+            <span id="errorCP" class="error"></span>
+            <br><br>
+
+            <label for="email">Correu electrònic:</label>
+            <input type="text" id="email" placeholder="a@gmail.com">
+            <span id="errorEmail" class="error"></span>
+            <br><br>
+
+            <label for="contrasenya">Contrasenya:</label>
+            <input type="password" id="contrasenya">
+            <input type="checkbox" id="veureContra"> Mostrar
+            <br>
+            <small>Mínim 8 caràcters, 1 majúscula, 1 minúscula, 2 números i 1 especial.</small>
+            <span id="errorContra" class="error"></span>
+            <br><br>
+
+            <label for="repetir">Repeteix la contrasenya:</label>
+            <input type="password" id="repetir">
+            <input type="checkbox" id="veureRepetir"> Mostrar
+            <span id="errorRepetir" class="error"></span>
+            <br><br>
+
+            <label>Accepto la política de privacitat</label>
+            <input type="checkbox" id="acceptar">
+            <span id="errorAcceptar" class="error"></span>
+            <br><br>
+
+            <input type="button" id="btnEsborrar" value="Esborrar">
+            <input type="submit" value="Enviar">
+        </fieldset>
+    </form>
+    <script src="../JS/treball_final.js"></script>
+</body>
+</html>
