@@ -83,7 +83,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmi
     }
 
     if (comptadorArroves !== 1 || ultimPunt <= posArrova) {
-        posarError("errorEmail", "Email incorrecte (ex: usuari@domini.com).");
+        posarError("errorEmail", "Email incorrecte (ex: joanericinil@gmail.com).");
         hiHaErrors = true;
     } else {
         posarError("errorEmail", "");
