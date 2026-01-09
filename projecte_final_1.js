@@ -89,7 +89,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         posarError("errorEmail", "");
     }
 
-    // --- 1.5 CONTRASENYA (8 caràcters, Maj, Min, 2 Núms, Símbol) ---
+    // CONTRASENYA (8 caràcters, Maj, Min, 2 Núms, Símbol)
     var p = document.getElementById("contrasenya").value;
     var majus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var minus = "abcdefghijklmnopqrstuvwxyz";
@@ -112,7 +112,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         posarError("errorContra", "");
     }
 
-    // --- 1.6 CONFIRMAR CONTRASENYA ---
+    // repetir contra
     var repetir = document.getElementById("repetir").value;
     if (repetir !== p || repetir === "") {
         posarError("errorRepetir", "No coincideixen.");
@@ -121,8 +121,8 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         posarError("errorRepetir", "");
     }
 
-    // --- 1.7 CHECKBOX ---
-    if (!document.getElementById("acceptar").checked) {
+    // checkbox acceptar 
+    if (!document.getElementById("acceptar").checked) { //amb el checked mira com esta el botó
         posarError("errorAcceptar", "Has d'acceptar.");
         hiHaErrors = true;
     } else {
@@ -133,10 +133,10 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
     if (!hiHaErrors) {
         document.getElementById("missatgeFinal").className = ""; // Mostrem el div de resultats
         document.getElementById("resultatText").innerHTML = 
-            "Nom: " + document.getElementById("nom").value + "<br>" +
-            "Edat: " + document.getElementById("edat").value + "<br>" +
-            "Email: " + document.getElementById("email").value + "<br>" +
-            "Codi Postal: " + document.getElementById("codipostal").value;
+            "Nom: " + document.getElementById("nom").value + "<br>" + //escribim el nom al requadre
+            "Edat: " + document.getElementById("edat").value + "<br>" + //escribim l'edat al requadre
+            "Email: " + document.getElementById("email").value + "<br>" + //escribim l'email al requadre
+            "Codi Postal: " + document.getElementById("codipostal").value; //escribim el CP al requadre
     } else {
         alert("Revisa els camps marcats en vermell.");
     }
