@@ -108,7 +108,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmi
     var majus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var minus = "abcdefghijklmnopqrstuvwxyz";
     var nums = "0123456789";
-    var sims = "!@#$%^&*()_+[]={};:|,.<>/?";
+    var sims = "!@#$%^&*()_+[]-={};:|,.<>/?";
     
     var teMaj = false, teMin = false, teSim = false, countNum = 0;
 
