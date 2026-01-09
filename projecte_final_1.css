@@ -1,11 +1,9 @@
-/* Regla 1: Fons gris per a tota la pàgina */
 body {
     background-color: #f0f0f0;
     font-family: Arial, sans-serif;
     padding: 20px;
 }
 
-/* Regla 2: Estil de la caixa del formulari */
 fieldset {
     background-color: rgb(255, 255, 255);
     border: 1px solid #000000;
@@ -13,21 +11,18 @@ fieldset {
     width: 80%; 
 }
 
-/* Regla 3: Estil dels missatges d'error (Vermell i negreta) */
 .error {
     color: red;
     font-weight: bold;
     margin-left: 10px;
 }
 
-/* Regla 4: Estil dels inputs per fer-los més grans */
 input[type="text"], input[type="password"], select {
     padding: 5px;
     margin-top: 5px;
     width: 250px;
 }
 
-/* Regla 5: Estil de la caixa verda final (resultat) */
 #missatgeFinal {
     border: 2px solid green;
     background-color: #e0f8e0;
@@ -36,7 +31,16 @@ input[type="text"], input[type="password"], select {
     color: green;
 }
 
-/* Regla extra: Per amagar coses */
 .ocult {
     display: none;
+}
+
+.botoesborrar {
+    background-color: #ff0505;
+    color: rgb(0, 0, 0);
+}
+
+.botoenviar {
+    background-color: #26a500;
+    color: rgb(0, 0, 0);
 }

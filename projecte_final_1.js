@@ -1,33 +1,24 @@
-// Funció auxiliar per escriure els errors vermells
+// Funció per posar els errors
 function posarError(id, text) {
     document.getElementById(id).innerHTML = text;
 }
 
-// 1. CHECKBOX: Veure contrasenya
+// 1.5 i 1.6 Mostrar contrasenyes
 document.getElementById("veureContra").onchange = function() {
     var camp = document.getElementById("contrasenya");
-    if (document.getElementById("veureContra").checked) {
-        camp.type = "text";
-    } else {
-        camp.type = "password";
-    }
+    if (this.checked) { camp.type = "text"; } else { camp.type = "password"; }
 };
 
-// 2. CHECKBOX: Veure contrasenya repetida
 document.getElementById("veureRepetir").onchange = function() {
     var camp = document.getElementById("repetir");
-    if (document.getElementById("veureRepetir").checked) {
-        camp.type = "text";
-    } else {
-        camp.type = "password";
-    }
+    if (this.checked) { camp.type = "text"; } else { camp.type = "password"; }
 };
 
-// 3. BOTÓ ESBORRAR
+// 1.8 Botó Esborrar
 document.getElementById("btnEsborrar").onclick = function() {
-    document.getElementById("elMeuFormulari").reset(); // Neteja els camps
-    
-    // Neteja els textos vermells d'error
+    document.getElementById("elMeuFormulari").reset();
+    document.getElementById("missatgeFinal").className = "ocult";
+    // Netegem els textos d'error manualment
     posarError("errorNom", "");
     posarError("errorEdat", "");
     posarError("errorCP", "");
@@ -35,143 +26,117 @@ document.getElementById("btnEsborrar").onclick = function() {
     posarError("errorContra", "");
     posarError("errorRepetir", "");
     posarError("errorAcceptar", "");
-
-    // Amaga el missatge final
-    document.getElementById("missatgeFinal").className = "ocult";
 };
 
-// 4. BOTÓ ENVIAR (LA PART IMPORTANT)
-// Aquí és on fem TOTA la validació de cop
+// 1.9 Botó Enviar (Validació General)
 document.getElementById("elMeuFormulari").onsubmit = function(event) {
-    event.preventDefault(); // Evita que s'enviï si hi ha errors
+    event.preventDefault(); // Aturem l'enviament per revisar
 
-    // Variable per saber si trobem algun problema. Comencem pensant que no n'hi ha (false).
     var hiHaErrors = false;
 
-    // --- VALIDACIÓ NOM ---
-    var nom = document.getElementById("nom").value;
-    if (nom === "") {
+    // --- 1.1 NOM I COGNOMS (Majúscula inicial de cada paraula) ---
+    var nomOriginal = document.getElementById("nom").value;
+    var nomArreglat = "";
+    if (nomOriginal === "") {
         posarError("errorNom", "El nom és obligatori.");
         hiHaErrors = true;
     } else {
-        // Si hi ha nom, posem les majúscules (ho fem aquí ja que hem tret el blur)
-        var paraules = nom.split(" ");
-        var nomArreglat = "";
-        for (var i = 0; i < paraules.length; i++) {
-            var p = paraules[i];
-            if (p.length > 0) {
-                nomArreglat = nomArreglat + p[0].toUpperCase() + p.slice(1) + " ";
+        // Lògica manual per majúscules: si és la primera lletra o ve després d'un espai
+        for (var i = 0; i < nomOriginal.length; i++) {
+            if (i === 0 || nomOriginal[i - 1] === " ") {
+                nomArreglat += nomOriginal[i].toUpperCase();
+            } else {
+                nomArreglat += nomOriginal[i];
             }
         }
-        document.getElementById("nom").value = nomArreglat.trim();
-        posarError("errorNom", ""); // Esborrem error
+        document.getElementById("nom").value = nomArreglat;
+        posarError("errorNom", "");
     }
 
-    // --- VALIDACIÓ EDAT ---
+    // --- 1.2 EDAT ---
     var edat = document.getElementById("edat").value;
     if (edat === "") {
-        posarError("errorEdat", "Has de seleccionar una edat.");
+        posarError("errorEdat", "Selecciona una opció.");
         hiHaErrors = true;
     } else {
         posarError("errorEdat", "");
     }
 
-    // --- VALIDACIÓ CODI POSTAL ---
+    // --- 1.3 CODI POSTAL (5 dígits) ---
     var cp = document.getElementById("codipostal").value;
-    if (cp === "") {
-        posarError("errorCP", "El Codi Postal és obligatori.");
-        hiHaErrors = true;
-    } else if (cp.length !== 5 || isNaN(cp)) {
-        posarError("errorCP", "Ha de tenir 5 números.");
+    if (cp.length !== 5 || isNaN(cp)) {
+        posarError("errorCP", "Han de ser 5 números.");
         hiHaErrors = true;
     } else {
         posarError("errorCP", "");
     }
 
-    // --- VALIDACIÓ EMAIL ---
+    // --- 1.4 EMAIL (una @ i punt després) ---
     var email = document.getElementById("email").value;
     var posArrova = email.indexOf("@");
-    var posPunt = email.lastIndexOf(".");
+    var ultimPunt = email.lastIndexOf(".");
     
-    if (email === "") {
-        posarError("errorEmail", "L'email és obligatori.");
-        hiHaErrors = true;
-    } else if (posArrova === -1 || posPunt <= posArrova) {
-        // Si no té @ O el punt està abans de l'@
-        posarError("errorEmail", "Falta l'@ o el punt està malament.");
+    // Mirem si hi ha @, si només hi ha una, i si el punt va després
+    var comptadorArroves = 0;
+    for (var j = 0; j < email.length; j++) {
+        if (email[j] === "@") comptadorArroves++;
+    }
+
+    if (comptadorArroves !== 1 || ultimPunt <= posArrova) {
+        posarError("errorEmail", "Email incorrecte (ex: usuari@domini.com).");
         hiHaErrors = true;
     } else {
         posarError("errorEmail", "");
     }
 
-    // --- VALIDACIÓ CONTRASENYA ---
-    var pass = document.getElementById("contrasenya").value;
+    // --- 1.5 CONTRASENYA (8 caràcters, Maj, Min, 2 Núms, Símbol) ---
+    var p = document.getElementById("contrasenya").value;
+    var majus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var minus = "abcdefghijklmnopqrstuvwxyz";
+    var nums = "0123456789";
+    var sims = "!@#$%^&*()_+[]={};:|,.<>/?";
     
-    // Lògica dels requisits (comptadors)
-    var majuscules = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var minuscules = "abcdefghijklmnopqrstuvwxyz";
-    var numeros = "0123456789";
-    var simbols = "$!(a#%*()_+[]-={};:|,.<>/?@&"; 
-    
-    var teMaj = false; 
-    var teMin = false; 
-    var numCount = 0; 
-    var teSim = false;
+    var teMaj = false, teMin = false, teSim = false, countNum = 0;
 
-    for (var i = 0; i < pass.length; i++) {
-        var lletra = pass[i];
-        if (majuscules.indexOf(lletra) !== -1) teMaj = true;
-        else if (minuscules.indexOf(lletra) !== -1) teMin = true;
-        else if (numeros.indexOf(lletra) !== -1) numCount++;
-        else if (simbols.indexOf(lletra) !== -1) teSim = true;
+    for (var k = 0; k < p.length; k++) {
+        if (majus.indexOf(p[k]) !== -1) teMaj = true;
+        else if (minus.indexOf(p[k]) !== -1) teMin = true;
+        else if (nums.indexOf(p[k]) !== -1) countNum++;
+        else if (sims.indexOf(p[k]) !== -1) teSim = true;
     }
 
-    if (pass === "") {
-        posarError("errorContra", "La contrasenya és obligatòria.");
-        hiHaErrors = true;
-    } else if (pass.length < 8) {
-        posarError("errorContra", "Mínim 8 caràcters.");
-        hiHaErrors = true;
-    } else if (!teMaj || !teMin || numCount < 2 || !teSim) {
-        posarError("errorContra", "Falten requisits (Maj, Min, 2 nums, símbol).");
+    if (p.length < 8 || !teMaj || !teMin || countNum < 2 || !teSim) {
+        posarError("errorContra", "Contrasenya insegura.");
         hiHaErrors = true;
     } else {
         posarError("errorContra", "");
     }
 
-    // --- VALIDACIÓ REPETIR CONTRASENYA ---
+    // --- 1.6 CONFIRMAR CONTRASENYA ---
     var repetir = document.getElementById("repetir").value;
-    if (repetir === "") {
-        posarError("errorRepetir", "Has de repetir la contrasenya.");
-        hiHaErrors = true;
-    } else if (repetir !== pass) {
-        posarError("errorRepetir", "Les contrasenyes no coincideixen.");
+    if (repetir !== p || repetir === "") {
+        posarError("errorRepetir", "No coincideixen.");
         hiHaErrors = true;
     } else {
         posarError("errorRepetir", "");
     }
 
-    // --- VALIDACIÓ CHECKBOX ---
-    var acceptat = document.getElementById("acceptar").checked;
-    if (acceptat === false) {
-        posarError("errorAcceptar", "Has d'acceptar la política.");
+    // --- 1.7 CHECKBOX ---
+    if (!document.getElementById("acceptar").checked) {
+        posarError("errorAcceptar", "Has d'acceptar.");
         hiHaErrors = true;
     } else {
         posarError("errorAcceptar", "");
     }
 
-    // --- RESULTAT FINAL ---
-    if (hiHaErrors === true) {
-        // Si hem trobat algun error pel camí, avisem i NO mostrem el resultat
-        alert("Hi ha errors o camps buits. Revisa el formulari.");
-    } else {
-        // Si tot està perfecte
-        var caixa = document.getElementById("missatgeFinal");
-        caixa.className = ""; // Fem visible la caixa verda
-        
+    // --- 1.9 RESULTAT FINAL ---
+    if (!hiHaErrors) {
+        document.getElementById("missatgeFinal").className = ""; // Mostrem el div de resultats
         document.getElementById("resultatText").innerHTML = 
             "Nom: " + document.getElementById("nom").value + "<br>" +
             "Edat: " + document.getElementById("edat").value + "<br>" +
             "Email: " + document.getElementById("email").value;
+    } else {
+        alert("Revisa els camps marcats en vermell.");
     }
 };
