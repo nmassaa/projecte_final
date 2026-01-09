@@ -3,7 +3,7 @@ function posarError(id, text) {
     document.getElementById(id).innerHTML = text;
 }
 
-// 1.5 i 1.6 Mostrar contrasenyes
+// Mostrar contrasenyes
 document.getElementById("veureContra").onchange = function() {
     var camp = document.getElementById("contrasenya");
     if (this.checked) { camp.type = "text"; } else { camp.type = "password"; }
@@ -14,7 +14,7 @@ document.getElementById("veureRepetir").onchange = function() {
     if (this.checked) { camp.type = "text"; } else { camp.type = "password"; }
 };
 
-// 1.8 Botó Esborrar
+// Botó Esborrar
 document.getElementById("btnEsborrar").onclick = function() {
     document.getElementById("elMeuFormulari").reset();
     document.getElementById("missatgeFinal").className = "ocult";
