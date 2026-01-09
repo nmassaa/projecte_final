@@ -71,24 +71,6 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmi
         posarError("errorCP", "");
     }
 
-    // email 
-    /*var email = document.getElementById("email").value;
-    var posArrova = email.indexOf("@");
-    var ultimPunt = email.lastIndexOf(".");           
-    
-    // Mirem si hi ha @, si només hi ha una, i si el punt va després
-    var comptadorArroves = 0;
-    for (var j = 0; j < email.length; j++) {
-        if (email[j] === "@") comptadorArroves++;
-    }
-
-    if (comptadorArroves !== 1 || ultimPunt <= posArrova) {
-        posarError("errorEmail", "Email incorrecte (ex: joanericinil@gmail.com).");
-        hiHaErrors = true;
-    } else {
-        posarError("errorEmail", "");
-    }*/
-
     // email
     var email = document.getElementById("email").value;
     
