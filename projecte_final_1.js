@@ -72,7 +72,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmi
     }
 
     // email 
-    var email = document.getElementById("email").value;
+    /*var email = document.getElementById("email").value;
     var posArrova = email.indexOf("@");
     var ultimPunt = email.lastIndexOf(".");           
     
@@ -87,6 +87,38 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmi
         hiHaErrors = true;
     } else {
         posarError("errorEmail", "");
+    }*/
+
+    // email
+    var email = document.getElementById("email").value;
+    
+    var quantesArroves = 0;
+    var posicioArrova = -1; //encara no hi ha cap
+    var posicioUltimPunt = -1; //encara no hi ha cap
+
+    for (var i = 0; i < email.length; i++) {
+        var lletra = email[i];
+
+        if (lletra === "@") {
+            quantesArroves++;      
+            posicioArrova = i;     
+        }
+        
+        if (lletra === ".") {
+            posicioUltimPunt = i;  
+        }
+    }
+
+    if (email === "") {
+        posarError("errorEmail", "L'email és obligatori.");
+        hiHaErrors = true;
+    } 
+    // Si no hi ha exactament 1 arrova  O  l'últim punt està abans que l'arrova
+    else if (quantesArroves !== 1 || posicioUltimPunt < posicioArrova) {
+        posarError("errorEmail", "Format incorrecte. ");
+        hiHaErrors = true;
+    } else {
+        posarError("errorEmail", ""); // Tot correcte
     }
 
     // CONTRASENYA (8 caràcters, Maj, Min, 2 Núms, Símbol)
