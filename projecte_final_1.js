@@ -135,7 +135,8 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         document.getElementById("resultatText").innerHTML = 
             "Nom: " + document.getElementById("nom").value + "<br>" +
             "Edat: " + document.getElementById("edat").value + "<br>" +
-            "Email: " + document.getElementById("email").value;
+            "Email: " + document.getElementById("email").value + "<br>" +
+            "Codi Postal: " + document.getElementById("codipostal").value;
     } else {
         alert("Revisa els camps marcats en vermell.");
     }
