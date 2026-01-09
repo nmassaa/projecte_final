@@ -17,6 +17,16 @@ fieldset {
     margin-left: 10px;
 }
 
+.botoesborrar {
+    background-color: #ff0505;
+    color: rgb(0, 0, 0);
+}
+
+.botoenviar {
+    background-color: #26a500;
+    color: rgb(0, 0, 0);
+}
+
 input[type="text"], input[type="password"], select {
     padding: 5px;
     margin-top: 5px;
@@ -35,12 +45,3 @@ input[type="text"], input[type="password"], select {
     display: none;
 }
 
-.botoesborrar {
-    background-color: #ff0505;
-    color: rgb(0, 0, 0);
-}
-
-.botoenviar {
-    background-color: #26a500;
-    color: rgb(0, 0, 0);
-}

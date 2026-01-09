@@ -28,20 +28,20 @@ document.getElementById("btnEsborrar").onclick = function() {
     posarError("errorAcceptar", "");
 };
 
-// 1.9 Botó Enviar (Validació General)
-document.getElementById("elMeuFormulari").onsubmit = function(event) {
+// Botó Enviar 
+document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmit = en el moment d'envair
     event.preventDefault(); // Aturem l'enviament per revisar
 
     var hiHaErrors = false;
 
-    // --- 1.1 NOM I COGNOMS (Majúscula inicial de cada paraula) ---
+    // NOM I COGNOMS 
     var nomOriginal = document.getElementById("nom").value;
     var nomArreglat = "";
     if (nomOriginal === "") {
         posarError("errorNom", "El nom és obligatori.");
         hiHaErrors = true;
     } else {
-        // Lògica manual per majúscules: si és la primera lletra o ve després d'un espai
+        // si és la primera lletra o ve després d'un espai es posa majuscula
         for (var i = 0; i < nomOriginal.length; i++) {
             if (i === 0 || nomOriginal[i - 1] === " ") {
                 nomArreglat += nomOriginal[i].toUpperCase();
@@ -53,7 +53,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         posarError("errorNom", "");
     }
 
-    // --- 1.2 EDAT ---
+    // edat
     var edat = document.getElementById("edat").value;
     if (edat === "") {
         posarError("errorEdat", "Selecciona una opció.");
@@ -62,7 +62,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         posarError("errorEdat", "");
     }
 
-    // --- 1.3 CODI POSTAL (5 dígits) ---
+    // codi postal
     var cp = document.getElementById("codipostal").value;
     if (cp.length !== 5 || isNaN(cp)) {
         posarError("errorCP", "Han de ser 5 números.");
@@ -71,10 +71,10 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) {
         posarError("errorCP", "");
     }
 
-    // --- 1.4 EMAIL (una @ i punt després) ---
+    // email 
     var email = document.getElementById("email").value;
     var posArrova = email.indexOf("@");
-    var ultimPunt = email.lastIndexOf(".");
+    var ultimPunt = email.lastIndexOf(".");           
     
     // Mirem si hi ha @, si només hi ha una, i si el punt va després
     var comptadorArroves = 0;
