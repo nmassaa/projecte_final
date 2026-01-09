@@ -129,7 +129,7 @@ document.getElementById("elMeuFormulari").onsubmit = function(event) { //onsubmi
         posarError("errorAcceptar", "");
     }
 
-    // --- 1.9 RESULTAT FINAL ---
+    // RESULTAT FINAL (requdre amb les dades)
     if (!hiHaErrors) {
         document.getElementById("missatgeFinal").className = ""; // Mostrem el div de resultats
         document.getElementById("resultatText").innerHTML = 
